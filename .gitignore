@@ -1,0 +1,44 @@
+.DS_Store
+
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Datasets and downloaded archives
+data/
+*.zip
+*.wav
+*.mp3
+*.m4a
+
+# Model checkpoints and weights
+checkpoints/
+best_model/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Logs and generated results
+logs/
+results/
+*.log
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
