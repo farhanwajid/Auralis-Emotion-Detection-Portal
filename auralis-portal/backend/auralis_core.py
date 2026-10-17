@@ -172,6 +172,13 @@ class AuralisModel(nn.Module):
         logits = self.cls(pooled)
         return (logits, att) if return_attention else logits
 
+def get_device():
+    if torch.cuda.is_available():
+        return 'cuda'
+    if torch.backends.mps.is_available():     # Apple Silicon (Metal)
+        return 'mps'
+    return 'cpu'
+
 # ------------------------------------------------------------------ inference (used by the portal)
 def load_auralis(root, device=None):
     root = Path(root)
@@ -179,7 +186,7 @@ def load_auralis(root, device=None):
     model = AuralisModel(cfg['backbone'], len(cfg['labels']), load_pretrained=False)
     ckpt = torch.load(root / 'best_model' / 'auralis_best.pt', map_location='cpu', weights_only=False)
     model.load_state_dict(ckpt['model'])
-    device = device or ('cuda' if torch.cuda.is_available() else 'cpu')
+    device = device or get_device()
     return model.to(device).eval(), cfg
 
 @torch.no_grad()
